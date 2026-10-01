@@ -80,6 +80,9 @@ export function getStyleProperties(options: Options = {}): string[] {
   return styleProps
 }
 
+// Let consumers detect the per-node stylesheet snapshot capability.
+Object.defineProperty(getStyleProperties, 'supportsNodeStyles', { value: true })
+
 function px(node: HTMLElement, styleProperty: string) {
   const win = node.ownerDocument.defaultView || window
   const val = win.getComputedStyle(node).getPropertyValue(styleProperty)
