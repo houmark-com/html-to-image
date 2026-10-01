@@ -30,9 +30,11 @@ export interface Options {
    */
   includeStyleProperties?: string[]
   /**
-   * Decorate each copied element after its styles, values, and children have
-   * been cloned. This callback receives the original and its detached copy.
-   * Only modify the copy to leave the live document unchanged.
+   * Decorate elements visited by recursive cloning after their styles, values,
+   * and children have been copied. Receives the original and its detached copy.
+   * Only modify the copy to leave the live document unchanged. This callback
+   * is synchronous; returned promises are not awaited. It runs before font
+   * and image embedding and before root style options are applied.
    */
   onCloneNode?: (original: HTMLElement, copy: HTMLElement) => void
   /**
