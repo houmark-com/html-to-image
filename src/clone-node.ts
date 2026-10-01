@@ -130,7 +130,7 @@ function cloneCSSStyle<T extends HTMLElement>(
   }
 
   const sourceStyle = window.getComputedStyle(nativeNode)
-  if (sourceStyle.cssText) {
+  if (sourceStyle.cssText && !options.includeStyleProperties) {
     targetStyle.cssText = sourceStyle.cssText
     targetStyle.transformOrigin = sourceStyle.transformOrigin
   } else {
