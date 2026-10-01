@@ -30,6 +30,12 @@ export interface Options {
    */
   includeStyleProperties?: string[]
   /**
+   * Decorate each copied element after its styles, values, and children have
+   * been cloned. This callback receives the original and its detached copy.
+   * Only modify the copy to leave the live document unchanged.
+   */
+  onCloneNode?: (original: HTMLElement, copy: HTMLElement) => void
+  /**
    * A function taking DOM node as argument. Should return `true` if passed
    * node should be included in the output. Excluding node means excluding
    * it's children as well.
