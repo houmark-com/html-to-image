@@ -5,6 +5,12 @@ on:
   pull_request:
     branches: [houmark]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to verify
+        default: houmark
+        required: false
+        type: string
 permissions:
   contents: read
 jobs:
@@ -12,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+      - run: git rev-parse HEAD > verified-revision.txt
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -21,6 +31,13 @@ jobs:
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm build
       - run: pnpm test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: renderer-coverage
+          path: |
+            test/coverage/lcov.info
+            verified-revision.txt
+          if-no-files-found: error
       - name: Report upstream published version
         run: npm view html-to-image version time --json
       - run: npm pack --ignore-scripts
