@@ -38,7 +38,14 @@ declarations, and source maps.
 ## Public distribution
 
 Releases use `1.11.13-houmark.N`. A compiled npm tarball and SHA-256 checksum are
-attached to each public GitHub Release. Direct consumers can pin the versioned release URL and lock its integrity without credentials. Applications whose package manager blocks URL subdependencies can use `npm:@houmark-com/html-to-image@1.11.13-houmark.1` with the existing houmark-com GitHub Packages registry and credentials. Organization policy currently disables public package visibility in that registry; the source and release tarball remain public.
+attached to each public GitHub Release. Direct consumers can pin the versioned
+release URL and lock its integrity without credentials. FeedbackKit uses this
+URL as a build dependency and fully bundles the renderer into its published
+widget. Its consumers install no separate renderer package, avoiding URL
+subdependency restrictions and additional registry credentials. The optional
+GitHub Packages mirror requires authentication; organization policy currently
+disables public package visibility there. The source and release tarball remain
+public.
 Never replace an existing release asset; publish a new version for changes.
 Original authorship and MIT license are retained.
 
